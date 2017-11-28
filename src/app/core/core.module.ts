@@ -1,4 +1,5 @@
 import { NgModule, SkipSelf, Optional } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -10,6 +11,7 @@ import { loadSvgResource } from '../utils/svg.util'
 @NgModule({
   imports: [
     SharedModule,
+    HttpModule,
     BrowserAnimationsModule,
   ],
   declarations: [HeaderComponent, FooterComponent, SidebarComponent],
