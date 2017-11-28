@@ -4,7 +4,7 @@
       {{item.name}}
     </md-card-title>
   </md-card-header>
-  <img md-card-img [src]="item.coverImg" alt="项目封面">
+  <img md-card-image [src]="item.coverImg" alt="项目封面">
   <md-card-content>
     {{item.desc}}
   </md-card-content>
@@ -13,11 +13,11 @@
       <md-icon>note</md-icon>
       <span>编辑</span>
     </button>
-    <button type="button">
+    <button md-button type="button">
       <md-icon>group_add</md-icon>
       <span>邀请</span>
     </button>
-    <button type="button">
+    <button md-button type="button">
       <md-icon>delete</md-icon>
       <span>删除</span>
     </button>

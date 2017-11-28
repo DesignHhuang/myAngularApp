@@ -10,7 +10,12 @@ import { ProjectRoutingModule } from './project-routing.module';
     SharedModule,
     ProjectRoutingModule,
   ],
-  declarations: [],
+  declarations: [
+    ProjectListComponent,
+    ProjectItemComponent,
+    NewProjectComponent,
+    InviteComponent,
+  ],
   entryComponents: [
     ProjectListComponent,
     ProjectItemComponent,
