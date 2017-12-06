@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+/* import { Neo4jD3 } from 'Neo4jD3'; */
+import * as d3 from 'd3';
 
 @Component({
   selector: 'app-header',
@@ -11,13 +13,14 @@ export class HeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(d3);
   }
 
   openSidebar() {
     this.toggle.emit();
   }
 
-  onChange(checked:boolean){
+  onChange(checked: boolean) {
     this.toggleDarkTheme.emit(checked);
   }
 
