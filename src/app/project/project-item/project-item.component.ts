@@ -1,4 +1,5 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { OutletContext } from '../../../../node_modules/.5.0.3@@angular/router/src/router_outlet_context';
 
 @Component({
   selector: 'app-project-item',
@@ -6,10 +7,14 @@ import { Component, OnInit,Input } from '@angular/core';
   styleUrls: ['./project-item.component.scss']
 })
 export class ProjectItemComponent implements OnInit {
-@Input() item;
+  @Input() item;
+  @Output() onInvite = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit() {
   }
 
+  onInviteClick() {
+    this.onInvite.emit();
+  }
 }

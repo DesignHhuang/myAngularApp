@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginModule } from './login/login.module';
 import { ProjectModule } from './project/project.module';
 import { Neo4jd3Module } from './neo4jd3/neo4jd3.module';
+import { TaskModule } from './task/task.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { Neo4jd3Module } from './neo4jd3/neo4jd3.module';
     LoginModule,
     ProjectModule,
     Neo4jd3Module,
+    TaskModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

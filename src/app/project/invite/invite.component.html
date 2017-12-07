@@ -1,3 +1,18 @@
-<p>
-  invite works!
-</p>
+<form>
+  <h3 md-dialog-title>邀请组员</h3>
+  <div md-dialog-content>
+    <md-input-container class="full-width">
+      <input mdInput type="text" placeholder="组员姓名" [mdAutocomplete]="autoMember">
+    </md-input-container>
+
+  </div>
+  <div md-dialog-actions>
+    <button md-raised-button color="primary" type="button" (click)="onClick()">保存</button>
+    <button md-dialog-close md-raised-button type="button">关闭</button>
+  </div>
+</form>
+<md-autocomplete #autoMember="mdAutocomplete" [displayWith]="displayUser">
+  <md-option *ngFor="let item of items" [value]="item">
+    {{item.name}}
+  </md-option>
+</md-autocomplete>
