@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 /* import { Neo4jD3 } from 'Neo4jD3'; */
 import * as d3 from 'd3';
+import * as t from 'topojson-client';
+
 
 @Component({
   selector: 'app-header',
@@ -14,6 +16,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     console.log(d3);
+    console.log(t);
+    
   }
 
   openSidebar() {

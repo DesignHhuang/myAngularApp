@@ -3,21 +3,21 @@ import { NgModule } from '@angular/core';
 import { CoreModule } from './core/core.module'
 import { MdSidenavModule } from '@angular/material'
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
 import { LoginModule } from './login/login.module';
 import { ProjectModule } from './project/project.module';
+import { Neo4jd3Module } from './neo4jd3/neo4jd3.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     CoreModule,
     MdSidenavModule,
-    AppRoutingModule,
     LoginModule,
     ProjectModule,
+    Neo4jd3Module,
   ],
   providers: [],
   bootstrap: [AppComponent]

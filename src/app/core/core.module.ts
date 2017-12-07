@@ -7,18 +7,23 @@ import { SharedModule } from '../shared/shared.module';
 import { MdIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { loadSvgResource } from '../utils/svg.util'
+import { loadSvgResource } from '../utils/svg.util';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from '../app-routing.module';
 @NgModule({
   imports: [
     SharedModule,
     HttpModule,
     BrowserAnimationsModule,
+    RouterModule,
+    AppRoutingModule,
   ],
   declarations: [HeaderComponent, FooterComponent, SidebarComponent],
   exports: [
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
+    AppRoutingModule,
   ]
 })
 export class CoreModule {
