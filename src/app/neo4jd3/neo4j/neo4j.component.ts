@@ -10,7 +10,19 @@ export class Neo4jComponent implements OnInit {
 
   constructor() { }
 
+  fuck(){
+    document.querySelector('.circle').classList.toggle('open');
+  }
+
   ngOnInit() {
+    var items = document.querySelectorAll('.menuItem');
+    
+    for(var i = 0, l = items.length; i < l; i++) {
+      items[i]["style"].left = (50 - 35*Math.cos(-0.5 * Math.PI - 2*(1/l)*i*Math.PI)).toFixed(4) + "%";
+      
+      items[i]["style"].top = (50 + 35*Math.sin(-0.5 * Math.PI - 2*(1/l)*i*Math.PI)).toFixed(4) + "%";
+    }
+    
     System.import('../../../assets/lib/neo4jd3').then(neo => {
       var neo4jd3 = new neo.Neo4jD3('#neo4jd3', {
         highlight: [
@@ -78,7 +90,7 @@ export class Neo4jComponent implements OnInit {
         neo4jDataUrl: '../../../assets/json/neo4jData.json',
         nodeRadius: 25,
         onNodeDoubleClick: function (node) {
-          switch (node.id) {
+          /* switch (node.id) {
             case '25':
               // Google
               window.open(node.properties.url, '_blank');
@@ -88,7 +100,17 @@ export class Neo4jComponent implements OnInit {
                 data = neo4jd3.randomD3Data(node, maxNodes);
               neo4jd3.updateWithD3Data(data);
               break;
+          } */
+          var items = document.querySelectorAll('.menuItem');
+
+          for (var i = 0, l = items.length; i < l; i++) {
+            items[i]["style"].left = (50 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+
+            items[i]["style"].top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
           }
+          console.log(document.querySelector('.nodecircle').classList);
+          document.querySelector('.nodecircle').classList.toggle('open');
+          /* node.preventDefault(); document.querySelector('.circle').classList.toggle('open'); */
         },
         onRelationshipDoubleClick: function (relationship) {
           console.log('double click on relationship: ' + JSON.stringify(relationship));

@@ -15,16 +15,21 @@ export class TaskHomeComponent implements OnInit {
         {
           id: 1,
           desc: 'renwuyi:qumaikaifei',
+          completed: true,
+          priority: 3,
           owner: {
             id: 1,
             name: 'zhangsan',
             avatar: 'avatars:svg-11'
           },
           dueDate: new Date(),
+          reminder: new Date(),
         },
         {
           id: 2,
           desc: 'renwuyi2:qumaikaifei',
+          completed: false,
+          priority: 1,
           owner: {
             id: 1,
             name: 'lisi',
@@ -41,6 +46,8 @@ export class TaskHomeComponent implements OnInit {
         {
           id: 1,
           desc: 'renwuyi:qumaikaifei',
+          completed: true,
+          priority: 2,
           owner: {
             id: 1,
             name: 'zhangsan',
@@ -51,6 +58,8 @@ export class TaskHomeComponent implements OnInit {
         {
           id: 2,
           desc: 'renwuyi2:qumaikaifei',
+          completed: false,
+          priority: 3,
           owner: {
             id: 1,
             name: 'lisi',
@@ -67,6 +76,8 @@ export class TaskHomeComponent implements OnInit {
         {
           id: 3,
           desc: 'renwuyi3:qumaikaifei',
+          completed: true,
+          priority: 1,
           owner: {
             id: 1,
             name: 'zhangsan',
@@ -77,6 +88,8 @@ export class TaskHomeComponent implements OnInit {
         {
           id: 4,
           desc: 'renwuyi4:qumaikaifei',
+          completed: false,
+          priority: 2,
           owner: {
             id: 1,
             name: 'lisi',

@@ -2,8 +2,8 @@
 /* jshint latedef:nofunc */
 'use strict';
 import * as d3 from 'd3';
+import { MatSelectModule } from '@angular/material/select';
 export function Neo4jD3(_selector, _options) {
-    console.log(d3);
     var container, graph, info, node, nodes, relationship, relationshipOutline, relationshipOverlay, relationshipText, relationships, selector, simulation, svg, svgNodes, svgRelationships, svgScale, svgTranslate,
         classes2colors = {},
         justLoaded = false,
@@ -84,10 +84,9 @@ export function Neo4jD3(_selector, _options) {
     }
 
     function appendInfoElement(cls, isNode, property, value) {
-        var elem = info.append('a');
+        var elem = info.append('div');
 
-        elem.attr('href', '#')
-            .attr('class', cls)
+        elem.attr('class', cls)
             .html('<strong>' + property + '</strong>' + (value ? (': ' + value) : ''));
 
         if (!value) {
@@ -118,6 +117,12 @@ export function Neo4jD3(_selector, _options) {
     function appendNode() {
         return node.enter()
             .append('g')
+            .attr('id', function (d) {
+                return d.id;
+            })
+            .attr('value', function (d) {
+                return d.labels[0];
+            })
             .attr('class', function (d) {
                 var highlight, i,
                     classes = 'node',
@@ -186,6 +191,7 @@ export function Neo4jD3(_selector, _options) {
         var n = appendNode();
 
         appendRingToNode(n);
+        appendListToNode(n);
         appendOutlineToNode(n);
 
         if (options.icons) {
@@ -197,6 +203,28 @@ export function Neo4jD3(_selector, _options) {
         }
 
         return n;
+    }
+
+    function appendListToNode(node) {
+        for (var key in node._groups) {
+            node._groups[key].forEach(element => {
+                switch (element.attributes[1].value) {
+                    case "Person":
+                        return node.html('<a class="' + element.id + '" style="display:none" id="person-domain"><rect x="30" y="-20" width="140" height="30" rx="10" ry="10" style="fill:lightgrey"/><text x="50" y="0" font-size="12">关联相同域名</text></a><a class="' + element.id + '" style="display:none" id="person-username"><rect x="30" y="12" width="140" height="30" rx="10" ry="10" style="fill:lightgrey"/><text x="50" y="32" font-size="12">关联相同用户名</text></a><a class="' + element.id + '" style="display:none" id="person-email"><rect x="30" y="44" width="140" height="30" rx="10" ry="10" style="fill:lightgrey"/><text x="50" y="64" font-size="12">关联相同邮箱</text></a><a class="' + element.id + '" style="display:none" id="person-mobile"><rect x="30" y="76" width="140" height="30" rx="10" ry="10" style="fill:lightgrey"/><text x="50" y="96" font-size="12">关联相同手机号</text></a><a class="' + element.id + '" style="display:none" id="person-idcard"><rect x="30" y="108" width="140" height="30" rx="10" ry="10" style="fill:lightgrey"/><text x="50" y="128" font-size="12">关联相同身份证号</text></a>');
+                        break;
+                    case "Domain":
+                        return node.html('<a class="' + element.id + '" style="display:none" id="ipblock-ip"><rect x="30" y="-20" width="140" height="30" rx="10" ry="10" style="fill:lightgrey"/><text x="50" y="0" font-size="12">关联IP</text></a>');
+                        break;
+                    case "Ip":
+                        return node.html('<a class="' + element.id + '" style="display:none" id="ip-country"><rect x="30" y="-20" width="140" height="30" rx="10" ry="10" style="fill:lightgrey"/><text x="50" y="0" font-size="12">关联国家</text></a><a class="' + element.id + '" style="display:none" id="ip-city"><rect x="30" y="12" width="140" height="30" rx="10" ry="10" style="fill:lightgrey"/><text x="50" y="32" font-size="12">关联城市</text></a><a class="' + element.id + '" style="display:none" id="ip-isp"><rect x="30" y="44" width="140" height="30" rx="10" ry="10" style="fill:lightgrey"/><text x="50" y="64" font-size="12">关联ISP</text></a>');
+                        break;
+                    default:
+                        return node.html('<a class="' + element.id + '" style="display:none" id="advance-ip-search"><rect x="30" y="-20" width="140" height="30" rx="10" ry="10" style="fill:lightgrey"/><text x="50" y="0" font-size="12">关联IP</text></a>');
+                }
+
+
+            })
+        }
     }
 
     function appendOutlineToNode(node) {
@@ -218,7 +246,6 @@ export function Neo4jD3(_selector, _options) {
         return node.append('circle')
             .attr('class', 'ring')
             .attr('r', options.nodeRadius * 1.16)
-            .append('a').text('dasdasdas')
             .append('title').text(function (d) {
                 return toString(d);
             });
@@ -240,7 +267,7 @@ export function Neo4jD3(_selector, _options) {
             })
             .html(function (d) {
                 var _icon = icon(d);
-                return _icon ? '&#x' + _icon : d.id;
+                return _icon ? '&#x' + _icon : '';
             });
     }
 
@@ -294,7 +321,6 @@ export function Neo4jD3(_selector, _options) {
             text = appendTextToRelationship(relationship),
             outline = appendOutlineToRelationship(relationship),
             overlay = appendOverlayToRelationship(relationship);
-
         return {
             outline: outline,
             overlay: overlay,
@@ -387,7 +413,6 @@ export function Neo4jD3(_selector, _options) {
     }
 
     function dragStarted(d) {
-        console.log(d3.event.active);
         if (!d3.event.active) {
             simulation.alphaTarget(0.3).restart();
         }
@@ -890,11 +915,13 @@ export function Neo4jD3(_selector, _options) {
             appendInfoElementRelationship('class', d.type);
         }
 
-        appendInfoElementProperty('property', '&lt;id&gt;', d.id);
+        /* appendInfoElementProperty('property', '&lt;id&gt;', d.id); */
 
         Object.keys(d.properties).forEach(function (property) {
             appendInfoElementProperty('property', property, JSON.stringify(d.properties[property]));
         });
+
+
     }
 
     function updateNodes(n) {
