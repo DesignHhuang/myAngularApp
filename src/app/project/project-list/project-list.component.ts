@@ -1,11 +1,10 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MdDialog } from '@angular/material';
 import { NewProjectComponent } from '../new-project/new-project.component'
 import { InviteComponent } from '../invite/invite.component';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { alidToRight } from '../../anims/router.anim';
 import { listAnimation } from '../../anims/list.anim';
-import { THIS_EXPR } from '../../../../node_modules/.5.0.3@@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-project-list',
@@ -13,7 +12,8 @@ import { THIS_EXPR } from '../../../../node_modules/.5.0.3@@angular/compiler/src
   styleUrls: ['./project-list.component.scss'],
   animations: [
     alidToRight, listAnimation
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectListComponent implements OnInit {
   @HostBinding('@routeAnim') state;
@@ -31,7 +31,7 @@ export class ProjectListComponent implements OnInit {
       "coverImg": "assets/img/covers/1.jpg"
     }
   ]
-  constructor(private dialog: MdDialog) { }
+  constructor(private dialog: MdDialog, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
@@ -50,7 +50,8 @@ export class ProjectListComponent implements OnInit {
         "name": "又一个新项目",
         "desc": "这是一个新项目",
         "coverImg": "assets/img/covers/8.jpg"
-      }]
+      }];
+      this.cd.markForCheck();
     })
   }
 
@@ -66,7 +67,8 @@ export class ProjectListComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, { data: { title: "删除项目", content: "您确认删除该项目么?" } });
     dialogRef.afterClosed().subscribe(re => {
       console.log(re);
-      this.projects = this.projects.filter(p => p.id !== project.id)
+      this.projects = this.projects.filter(p => p.id !== project.id);
+      this.cd.markForCheck();
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MdDialog } from '@angular/material';
 import { NewTaskComponent } from '../new-task/new-task.component';
 import { CopyTaskComponent } from '../copy-task/copy-task.component';
@@ -12,7 +12,8 @@ import { alidToRight } from "../../anims/router.anim";
   styleUrls: ['./task-home.component.scss'],
   animations: [
     alidToRight
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskHomeComponent implements OnInit {
   @HostBinding('@routeAnim') state;
@@ -109,7 +110,7 @@ export class TaskHomeComponent implements OnInit {
       ]
     }
   ]
-  constructor(private dialog: MdDialog) { }
+  constructor(private dialog: MdDialog, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
