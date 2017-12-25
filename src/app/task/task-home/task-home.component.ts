@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MdDialog } from '@angular/material';
+import { NewTaskComponent } from '../new-task/new-task.component';
+import { CopyTaskComponent } from '../copy-task/copy-task.component';
 
 @Component({
   selector: 'app-task-home',
@@ -10,7 +13,7 @@ export class TaskHomeComponent implements OnInit {
   lists = [
     {
       id: 1,
-      name: 'daiban',
+      name: '待办',
       tasks: [
         {
           id: 1,
@@ -41,7 +44,7 @@ export class TaskHomeComponent implements OnInit {
     },
     {
       id: 2,
-      name: 'jingxingzhong',
+      name: '进行中',
       tasks: [
         {
           id: 1,
@@ -71,7 +74,7 @@ export class TaskHomeComponent implements OnInit {
     },
     {
       id: 3,
-      name: 'yiwangcheng',
+      name: '已完成',
       tasks: [
         {
           id: 3,
@@ -100,9 +103,17 @@ export class TaskHomeComponent implements OnInit {
       ]
     }
   ]
-  constructor() { }
+  constructor(private dialog: MdDialog) { }
 
   ngOnInit() {
+  }
+
+  launchNewTaskDialog() {
+    this.dialog.open(NewTaskComponent);
+  }
+
+  launchCopyTaskDialog() {
+    const dialogRef = this.dialog.open(CopyTaskComponent, { data: { lists: this.lists } });
   }
 
 }
