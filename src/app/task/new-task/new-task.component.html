@@ -1,5 +1,5 @@
 <form>
-  <h3 md-dialog-title>新建任务</h3>
+  <h3 md-dialog-title>{{title}}</h3>
   <div md-dialog-content>
     <md-input-container class="full-width">
       <input mdInput type="text" placeholder="任务内容">
@@ -24,21 +24,21 @@
     </md-input-container>
   </div>
   <div md-dialog-actions>
-    <div class="fill" *ngIf="notConfirm else confirm">
-      <button md-raised-button color="primary" type="submit" [disabled]="!form.valid">
+    <div class="fill">
+      <button md-raised-button color="primary" type="submit">
         保存
       </button>
       <button md-dialog-close md-raised-button type="button">关闭</button>
       <span class="fill-remaining-space">
       </span>
-      <button md-button color="warn" type="button" [disabled]="delInvisible" (click)="onDelClick(false)">删除</button>
+      <!-- <button md-button color="warn" type="button" [disabled]="delInvisible" (click)="onDelClick(false)">删除</button> -->
     </div>
   </div>
 </form>
-<ng-template #confirm>
+<!-- <ng-template #confirm>
   <div class="fill">
     <span class="fill-remaining-space mat-body-2">是否确定删除？</span>
     <button md-button color="warn" type="button" (click)="reallyDel()">确定</button>
     <button md-raised-button color="primary" type="button" (click)="onDelClick(true)">取消</button>
   </div>
-</ng-template>
+</ng-template> -->
