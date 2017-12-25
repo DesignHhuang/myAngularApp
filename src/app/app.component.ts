@@ -4,7 +4,7 @@ import { OverlayContainer } from '@angular/material';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   darkTheme = false;
@@ -15,4 +15,8 @@ export class AppComponent {
     this.darkTheme = dark;
     this.oc.themeClass = dark ? 'myapp-dark-theme' : null;
   }
+
+  /* onClick() {
+    this.squareState = this.squareState === 'red' ? 'green' : "red";
+  } */
 }
