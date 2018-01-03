@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { loadSvgResource } from '../utils/svg.util';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
+import { ServicesModule } from '../services/services.module';
 import 'hammerjs';
 import 'rxjs/add/operator/take';
 @NgModule({
@@ -18,6 +19,7 @@ import 'rxjs/add/operator/take';
         HttpModule,
         BrowserAnimationsModule,
         RouterModule,
+        ServicesModule.forRoot(),
         AppRoutingModule,
     ],
     declarations: [HeaderComponent, FooterComponent, SidebarComponent],
@@ -26,7 +28,15 @@ import 'rxjs/add/operator/take';
         FooterComponent,
         SidebarComponent,
         AppRoutingModule,
-    ]
+    ],
+    providers: [
+        {
+            provide: 'BASE_CONFIG',
+            useValue: {
+                uri: 'http://localhost:3000'
+            }
+        }
+    ],
 })
 export class CoreModule {
     constructor( @Optional() @SkipSelf() parent: CoreModule, ir: MdIconRegistry, ds: DomSanitizer) {

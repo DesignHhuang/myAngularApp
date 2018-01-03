@@ -27,12 +27,12 @@
                 每日佳句
             </md-card-title>
             <md-card-subtitle>
-                的话放大放大方法减肥减肥撒娇啊说的就是 撒低级撒娇地说大大世界的地撒旦
+                {{quote.cn}}
             </md-card-subtitle>
         </md-card-header>
-        <img md-card-image src="/assets/img/quote_fallback.jpg" alt="">
+        <img md-card-image [src]="quote.pic" alt="">
         <md-card-content>
-            this is my first app.
+            {{quote.en}}
         </md-card-content>
     </md-card>
 </form>
