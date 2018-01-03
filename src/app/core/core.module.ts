@@ -11,27 +11,28 @@ import { loadSvgResource } from '../utils/svg.util';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 import 'hammerjs';
+import 'rxjs/add/operator/take';
 @NgModule({
-  imports: [
-    SharedModule,
-    HttpModule,
-    BrowserAnimationsModule,
-    RouterModule,
-    AppRoutingModule,
-  ],
-  declarations: [HeaderComponent, FooterComponent, SidebarComponent],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
-    AppRoutingModule,
-  ]
+    imports: [
+        SharedModule,
+        HttpModule,
+        BrowserAnimationsModule,
+        RouterModule,
+        AppRoutingModule,
+    ],
+    declarations: [HeaderComponent, FooterComponent, SidebarComponent],
+    exports: [
+        HeaderComponent,
+        FooterComponent,
+        SidebarComponent,
+        AppRoutingModule,
+    ]
 })
 export class CoreModule {
-  constructor( @Optional() @SkipSelf() parent: CoreModule, ir: MdIconRegistry, ds: DomSanitizer) {
-    if (parent) {
-      throw new Error('模块已经存在，不能加载！');
+    constructor( @Optional() @SkipSelf() parent: CoreModule, ir: MdIconRegistry, ds: DomSanitizer) {
+        if (parent) {
+            throw new Error('模块已经存在，不能加载！');
+        }
+        loadSvgResource(ir, ds);
     }
-    loadSvgResource(ir, ds);
-  }
 }

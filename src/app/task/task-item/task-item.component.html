@@ -1,17 +1,17 @@
 <md-list-item class="container" [@item]="widerPriority" [ngClass]="{
   'priority-normal':item.priority === 3,
   'priority-important':item.priority === 2,
-  'priority-emergency':item.priority === 1}" [dragTag]="'task-item'" [app-darggable]="true" [draggedClass]="'drag-start'"
-  [dragData]="item" (click)="onItemClick()">
-  <md-checkbox class="status" [checked]="item.completed" (click)="onCheckBoxClick($event)"></md-checkbox>
-  <div md-line class="content" [ngClass]="{'completed':item.completed}">
-    <span [mdTooltip]="item.desc">{{item.desc}}</span>
-  </div>
-  <div md-line class="bottom-bar">
-    <span class="duedate" *ngIf="item.dueDate">
-      {{item.dueDate | date:"yy-MM-dd"}}
-    </span>
-    <md-icon *ngIf="item.reminder">alarm</md-icon>
-  </div>
-  <md-icon [svgIcon]="avatar" md-list-avatar class="avatar"></md-icon>
+  'priority-emergency':item.priority === 1}" [dragTag]="'task-item'" [app-draggable]="true" [draggedClass]="'drag-start'"
+    [dragData]="item" (click)="onItemClick()">
+    <md-checkbox class="status" [checked]="item.completed" (click)="onCheckBoxClick($event)"></md-checkbox>
+    <div md-line class="content" [ngClass]="{'completed':item.completed}">
+        <span [mdTooltip]="item.desc">{{item.desc}}</span>
+    </div>
+    <div md-line class="bottom-bar">
+        <span class="duedate" *ngIf="item.dueDate">
+            {{item.dueDate | date:"yy-MM-dd"}}
+        </span>
+        <md-icon *ngIf="item.reminder">alarm</md-icon>
+    </div>
+    <md-icon [svgIcon]="avatar" md-list-avatar class="avatar"></md-icon>
 </md-list-item>

@@ -2,73 +2,75 @@ import { Directive, HostListener, ElementRef, Renderer2, Input, Output, EventEmi
 import { DragDropService, DragData } from '../drag-drop.service';
 
 @Directive({
-  selector: '[app-droppable][dropTags][dragEnterClass]'
+    selector: '[app-droppable][dropTags][dragEnterClass]',
 })
 export class DropDirective {
-  @Input() dragEnterClass: string;
-  @Output() dropped: EventEmitter<DragData> = new EventEmitter();
-  @Input() dropTags: string[] = [];
-  private drag$;
-  constructor(private el: ElementRef, private rd: Renderer2, private service: DragDropService) {
-    this.drag$ = this.service.getDragData().take(1);
-  }
-
-  @HostListener('dragenter', ['$event'])
-  onDragEnter(ev: Event) {
-    ev.preventDefault();
-    ev.stopPropagation();
-    if (this.el.nativeElement === ev.target) {
-      this.drag$.subscribe(dragData => {
-        if (this.dropTags.indexOf(dragData.tag) > -1) {
-          this.rd.addClass(this.el.nativeElement, this.dragEnterClass);
-        }
-      });
+    @Input() dragEnterClass = '';
+    @Output() dropped: EventEmitter<DragData> = new EventEmitter();
+    @Input() dropTags: string[] = [];
+    private drag$;
+    constructor(private el: ElementRef, private rd: Renderer2, private service: DragDropService) {
+        this.drag$ = this.service.getDragData().take(1);
     }
-  }
 
-  @HostListener('dragover', ['$event'])
-  onDragOver(ev: Event) {
-    ev.preventDefault();
-    ev.stopPropagation();
-    if (this.el.nativeElement === ev.target) {
-      this.drag$.subscribe(dragData => {
-        if (this.dropTags.indexOf(dragData.tag) > -1) {
-          this.rd.setProperty(ev, 'dataTransfer.effectAllowed', 'all');
-          this.rd.setProperty(ev, 'dataTransfer.dropEffect', 'move');
-        } else {
-          this.rd.setProperty(ev, 'dataTransfer.effectAllowed', 'none');
-          this.rd.setProperty(ev, 'dataTransfer.dropEffect', 'none');
+    @HostListener('dragenter', ['$event'])
+    onDragEnter(ev: Event) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        if (this.el.nativeElement === ev.target) {
+            this.drag$.subscribe(dragData => {
+                if (this.dropTags.indexOf(dragData.tag) > -1) {
+                    this.rd.addClass(this.el.nativeElement, this.dragEnterClass);
+                }
+            });
         }
-      });
     }
-  }
 
-  @HostListener('dragleave', ['$event'])
-  onDragLeave(ev: Event) {
-    ev.preventDefault();
-    ev.stopPropagation();
-    if (this.el.nativeElement === ev.target) {
-      this.drag$.subscribe(dragData => {
-        if (this.dropTags.indexOf(dragData.tag) > -1) {
-          this.rd.removeClass(this.el.nativeElement, this.dragEnterClass);
+    @HostListener('dragover', ['$event'])
+    onDragOver(ev: Event) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        if (this.el.nativeElement === ev.target) {
+            this.drag$.subscribe(dragData => {
+                if (this.dropTags.indexOf(dragData.tag) > -1) {
+                    this.rd.setProperty(ev, 'dataTransfer.effectAllowed', 'all');
+                    this.rd.setProperty(ev, 'dataTransfer.dropEffect', 'move');
+                } else {
+                    this.rd.setProperty(ev, 'dataTransfer.effectAllowed', 'none');
+                    this.rd.setProperty(ev, 'dataTransfer.dropEffect', 'none');
+                }
+            });
         }
-      });
     }
-  }
 
-  @HostListener('drop', ['$event'])
-  onDrop(ev: Event) {
-    ev.preventDefault();
-    ev.stopPropagation();
-    if (this.el.nativeElement === ev.target) {
-      this.drag$.subscribe(dragData => {
-        if (this.dropTags.indexOf(dragData.tag) > -1) {
-          this.rd.removeClass(this.el.nativeElement, this.dragEnterClass);
-          this.dropped.emit(dragData);
-          this.service.clearDragData();
+    @HostListener('dragleave', ['$event'])
+    onDragLeave(ev: Event) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        if (this.el.nativeElement === ev.target) {
+            this.rd.removeClass(this.el.nativeElement, this.dragEnterClass);
+            this.drag$.subscribe(dragData => {
+                if (this.dropTags.indexOf(dragData.tag) > -1) {
+                    this.rd.removeClass(this.el.nativeElement, this.dragEnterClass);
+                }
+            });
         }
-      });
     }
-  }
+
+    @HostListener('drop', ['$event'])
+    onDrop(ev: Event) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        if (this.el.nativeElement === ev.target) {
+            this.rd.removeClass(this.el.nativeElement, this.dragEnterClass);
+            this.drag$.subscribe(dragData => {
+                if (this.dropTags.indexOf(dragData.tag) > -1) {
+                    this.rd.removeClass(this.el.nativeElement, this.dragEnterClass);
+                    this.dropped.emit(dragData);
+                    this.service.clearDragData();
+                }
+            });
+        }
+    }
 
 }
