@@ -10,9 +10,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { loadSvgResource } from '../utils/svg.util';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
-import { ServicesModule } from '../services/services.module';
+import { ServicesModule } from '../services';
 import 'hammerjs';
 import 'rxjs/add/operator/take';
+import '../utils/debug.util';
 @NgModule({
     imports: [
         SharedModule,
